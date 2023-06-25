@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/doctor-change-password.html  30 Nov 2019 04:12:36 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>HealthEase</title>
+	
+	<!-- Favicons -->
+	<link type="image/x-icon" href="{% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon">
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}">
+	
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/search.css' %}">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">{% include 'doctor-navbar.html' %}</header>
+			<!-- /Header -->
+			
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+                <div class="container-fluid">
+                  <div class="row align-items-center">
+                    <div class="col-md-12 col-12">
+                      <nav aria-label="breadcrumb" class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item">
+                            <a href="{% url 'hospital_home'%}">Home</a>
+                          </li>
+                        </ol>
+                      </nav>
+                      <h2 class="breadcrumb-title">Dashboard</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+						
+							<!-- Profile Sidebar -->
+							<div>{% include 'doctor-sidebar.html' %}</div>
+							<!-- /Profile Sidebar -->
+							
+						</div>
+                        
+                          
+						<div class="col-md-7 col-lg-8 col-xl-9" >
+							<div class="card">
+								<div class="card-body">
+									<!-- <div class="wrapper">
+										<div class="container">
+										  <form role="search" method="get" class="search-form form" action="">
+											<label>
+												<span class="screen-reader-text">Search for...</span>
+												<input type="search" class="search-field" placeholder="Patient ID" value="" name="s" title="" />
+											</label>
+											<input type="submit" class="search-submit button" value="&#xf002" />
+										</form>
+										</div>
+									</div>-->
+									
+									<div class="searchbar1">
+									<input class="c-checkbox" type="checkbox" id="checkbox">
+									<div class="c-formContainer">
+										<h2 style="text-align: center;">Patient ID</h2>
+										<br>
+									  	<form class="c-form" action="#">
+									    	<input class="c-form__input" placeholder="Patient ID">
+									    	<label class="c-form__buttonLabel" for="checkbox">
+									      		<button class="c-form__button" type="submit">Search</button>
+									    	</label>
+									    	<label class="c-form__toggle" for="checkbox" data-title="Search"></label>
+									  	</form>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+   
+			<!-- Footer -->
+			{% include 'footer.html' %}
+			<!-- /Footer -->
+		   
+		</div>
+		<!-- /Main Wrapper -->
+	  
+		<!-- jQuery -->
+		<script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+		<script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+		
+		<!-- Sticky Sidebar JS -->
+        <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+
+        <!-- Search Bar JS -->
+        <script>
+            var searchBox=document.getElementById("search11-bar");
+            var Icon=document.getElementsByClassName("submit11")[0];
+            Icon.onclick=function(){
+                searchBox.classList.toggle("active");
+            }
+        </script>
+
+        
+
+		
+	</body>
+
+<!-- doccure/doctor-change-password.html  30 Nov 2019 04:12:36 GMT -->
+</html>

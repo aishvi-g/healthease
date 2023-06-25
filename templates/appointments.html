@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>HealthEase</title>
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'doctor-navbar.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="index-2.html">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Appointments
+                  </li>
+                </ol>
+              </nav>
+              <h2 class="breadcrumb-title">Appointments</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Breadcrumb -->
+
+      <!-- Page Content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+              <!-- Profile Sidebar -->
+              <div>{% include 'doctor-sidebar.html' %}</div>
+              <!-- /Profile Sidebar -->
+            </div>
+            
+            <div class="col-md-7 col-lg-8 col-xl-9">
+              <div class="appointments">
+                <!-- Appointment List -->
+                {% for app in appointments %}
+                <div class="appointment-list">
+                  <div class="profile-info-widget">
+                    <a href="patient-profile.html" class="booking-doc-img">
+                      <img
+                        src="{{app.patient.featured_image.url}}"
+                        alt="User Image"
+                      />
+                    </a>
+                    <div class="profile-det-info">
+                      <h3><a href="{%url 'patient-profile' pk=app.patient.patient_id%}">{{app.patient.name}}</a></h3>
+                      
+                      <div class="patient-details">
+                        <h5>
+                          <i class="fas fa-file"></i>Appoinment Serial No: #PT{{app.serial_number}}
+                        </h5>
+                        <h5>
+                          <i class="far fa-clock"></i> {{app.date}} {{app.time}}
+                        </h5>
+                        <h5>
+                          <i class="fas fa-briefcase-medical"></i> Purpose: {{app.appointment_type}} 
+                        </h5>
+                        <h5>
+                          <i class="fas fa-map-marker-alt"></i>{{app.patient.address}}
+                        </h5>
+                        <h5>
+                          <i class="fas fa-envelope"></i> {{app.patient.email}}
+                        </h5>
+                        
+                        <h5>
+                          {% if app.payment_status == 'pending' %}
+                          <i class="fas fa-money-check-alt"></i> <span class="badge badge-pill bg-warning-light">Payment Status: Pending</span>
+                          {% endif %}
+                          {% if app.payment_status == 'VALID' %}
+                          <i class="fas fa-money-check-alt"></i> <span class="badge badge-pill bg-success-light">Payment Status: Paid</span>
+                          {% endif %}
+                        </h5>
+                        <h5 class="mb-0">
+                          <i class="fas fa-phone"></i> +880{{app.patient.phone_number}}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="appointment-action">
+                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details"><i class="far fa-eye"></i> View</a>
+                    <a href="{% url 'accept-appointment' pk=app.id %}" onclick="return confirm('Accept appointment?');" class="btn btn-sm bg-success-light"><i class="fas fa-check"></i> Accept</a>
+                    <a href="{% url 'reject-appointment' pk=app.id %}" onclick="return confirm('Reject Appointment?');" class="btn btn-sm bg-danger-light"><i class="fas fa-times"></i> Reject</a>
+                  </div>
+                  
+                </div>
+                <!-- /Appointment List -->
+                {% endfor %}
+                
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+        
+      </div>
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- Appointment Details Modal -->
+    <div class="modal fade custom-modal" id="appt_details">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appointment Details</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="info-details">
+              <li>
+                <div class="details-header">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <span class="title">#APT0001</span>
+                      <span class="text">21 Oct 2019 10:00 AM</span>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="text-right">
+                        <button
+                          type="button"
+                          class="btn bg-success-light btn-sm"
+                          id="topup_status"
+                        >
+                          Completed
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <span class="title">Status:</span>
+                <span class="text">Completed</span>
+              </li>
+              <li>
+                <span class="title">Confirm Date:</span>
+                <span class="text">29 Jun 2019</span>
+              </li>
+              <li>
+                <span class="title">Paid Amount</span>
+                <span class="text">$450</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Appointment Details Modal -->
+
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/script.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  </body>
+
+  <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
+</html>

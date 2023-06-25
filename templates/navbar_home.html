@@ -1,0 +1,138 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg header-nav">
+  <div class="navbar-header">
+    <a id="mobile_btn" href="javascript:void(0);">
+      <span class="bar-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </a>
+     <a href="{% url 'hospital_home'%}" class="navbar-brand logo">
+      <img
+        src="{% static 'HealthStack-System/images/Normal/logoo.svg' %}"
+        class="img-fluid"
+        alt="Logo"
+      /> 
+    </a>
+  </div>
+  <div class="main-menu-wrapper">
+    <div class="menu-header">
+       <a href="#" class="menu-logo">
+        <img
+          src="{% static 'HealthStack-System/images/Normal/logoo.svg' %}"
+          class="img-fluid"
+          alt="Logo"
+        />
+      </a> 
+      <a id="menu_close" class="menu-close" href="javascript:void(0);">
+        <i class="fas fa-times"></i>
+      </a>
+    </div>
+    <ul class="main-nav">
+      <li>
+        <a href="{% url 'hospital_home'%}" style="text-decoration: none;">Home</a>
+      </li>
+
+      {% comment %}
+      {% if user.is_authenticated and user.is_doctor %}
+      <li class="has-submenu active">
+        <a href="#" style="text-decoration: none;">Doctors <i class="fas fa-chevron-down"></i></a>
+        <ul class="submenu">
+         
+          <li>
+            <a href="{% url 'doctor-dashboard' %}" style="text-decoration: none;"
+              >Doctor Dashboard</a
+            >
+          </li>
+
+          <li><a href="{% url 'appointments'%}">Appointments</a></li>
+          <li><a href="{% url 'my-patients' %}">Patients List</a></li>
+          <li>
+            <a href="{% url 'doctor-profile-settings' %}">Profile Settings</a>
+          </li>
+        </ul>
+      </li>
+      {% endif %}
+      {% endcomment %}
+
+      {% comment %}
+      {% if user.is_authenticated and user.is_patient %}
+      <li class="has-submenu">
+        <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+        <ul class="submenu">
+          <li><a href="{% url 'search' %}">Search Doctor</a></li>
+          <li>
+            <a href="{% url 'patient-dashboard' %}"
+              >Patient Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'profile-settings' %}"
+              >Profile Settings</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'change-password' pk=user.id %}">Change Password</a>
+          </li>
+        </ul>
+      </li>
+      
+      {% endif %}
+      {% endcomment %}
+
+      {% if user.is_authenticated and user.is_patient %}
+      <li><a href="{% url 'patient-dashboard' %}"style="text-decoration: none;">Patient Dashboard</a></li>
+      {% endif %}
+
+      {% if user.is_authenticated and user.is_doctor %}
+      <li><a href="{% url 'doctor-dashboard' %}"style="text-decoration: none;">Doctor Dashboard</a></li>
+      {% endif %}
+
+      <li>
+        <a href="{% url 'about-us'%}"style="text-decoration: none;">About Us</a>
+      </li>
+
+      {% if user.is_authenticated and user.is_doctor or user.is_patient %}
+      <li><a href="{% url 'multiple-hospital' %}" style="text-decoration: none;">Hospital</a></li>
+      {% endif %}
+        
+      {% if user.is_authenticated and user.is_patient  %}
+      <li><a href="{% url 'search' %}" style="text-decoration: none;">Search Doctor</a></li>
+      {% endif %}
+
+
+        
+
+
+      <li class="login-link">
+        <a href="{% url 'login' %}">Login / Signup</a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="nav header-navbar-rht">
+    <li class="nav-item contact-item">
+      <div class="header-contact-img">
+        <i class="far fa-hospital"></i>
+      </div>
+      <div class="header-contact-detail">
+        <p class="contact-header">Contact</p>
+        <p class="contact-info-header">+880 1234 567890</p>
+      </div>
+    </li>
+
+    {% if user.is_authenticated %}
+    <li class="nav-item">
+      <a class="nav-link header-login" href="{% url 'logout' %}">Logout </a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link header-login" href="{% url 'login' %}"
+        >Login / Signup
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

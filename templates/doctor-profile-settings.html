@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <title>HealthEase</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Select2 CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/select2/css/select2.min.css' %}"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/dropzone/dropzone.min.css' %}"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Fancybox CSS -->
+    <link
+      rel="stylesheet"
+      href="% static 'HealthStack-System/plugins/fancybox/jquery.fancybox.min.css' %"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'doctor-navbar.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Profile Settings
+                  </li>
+                </ol>
+              </nav>
+              <h2 class="breadcrumb-title">Profile Settings</h2>{% include 'message.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Breadcrumb -->
+
+      <!-- Page Content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+              <!-- Profile Sidebar -->
+              <div>{% include 'doctor-sidebar.html' %}</div>
+              <!-- /Profile Sidebar -->
+            </div>
+
+            
+	          <div class="col-md-7 col-lg-8 col-xl-9">
+              
+            <form action="{% url 'doctor-profile-settings' %}" method="POST" enctype="multipart/form-data">
+							<!-- Basic Information -->
+              {% csrf_token %}
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Basic Information</h4>
+									<div class="row form-row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div class="change-avatar">
+													<div class="profile-img">
+														<img src="{{doctor.featured_image.url}}" alt="User Image">
+													</div>
+													<div class="upload-img">
+														<div class="change-photo-btn">
+															<span><i class="fa fa-upload"></i> Upload Photo</span>
+															<input type="file" class="upload" name="featured_image">
+														</div>
+														<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Username <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" readonly value="{{doctor.username}}" >
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Email <span class="text-danger">*</span></label>
+												<input type="email" class="form-control" readonly value="{{doctor.email}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Name <span class="text-danger">*</span></label>
+												<input type="text" name="name" class="form-control" value="{{doctor.name}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Phone Number <span class="text-danger">*</span></label>
+												<input type="number" name="number" class="form-control" value="{{doctor.phone_number}}"placeholder="Phone Number">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Gender<span class="text-danger">*</span></label>
+												<select class="form-control select" name="gender">
+                          {% if doctor.gender == 'male' %}
+                          <option value="{{doctor.gender}}">{{doctor.gender}}</option>
+                          <option value="female">Female</option>
+                          {% elif doctor.gender == 'female' %}
+                          <option value="{{doctor.gender}}">{{doctor.gender}}</option>
+                          <option value="male">Male</option>
+                          {% else %}
+                          <option>Select</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          {% endif %}
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group mb-0">
+												<label>Date of Birth<span class="text-danger">*</span></label>
+												<input type="date" class="form-control" name="dob" value="{{doctor.dob}}">
+											</div>
+										</div>
+                    <div class="col-md-6">
+											<div class="form-group">
+												<label>NID <span class="text-danger">*</span></label>
+												<input type="number" name="nid" class="form-control" value="{{doctor.nid}}" placeholder="NID">
+											</div>
+										</div>
+                    <div class="col-md-6">
+											<div class="form-group">
+												<label>Visiting Hour <span class="text-danger">*</span></label>
+												<input type="text" name="visit_hour" class="form-control" value="{{doctor.visiting_hour}}" placeholder="x am - x pm">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Basic Information -->
+							
+						 <!-- About Me -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">About Me</h4>
+									<div class="form-group mb-0">
+										<label>Biography</label>
+										<textarea class="form-control" rows="5" name="description">{{doctor.description}}</textarea>
+									</div>
+								</div>
+							</div>
+							<!-- /About Me -->
+							
+							<!-- Clinic Info -->
+							<!-- <div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Clinic Info</h4>
+									<div class="row form-row">
+
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Clinic Images</label>
+												<form action="#" class="dropzone"></form>
+											</div>
+											<div class="upload-wrap">
+												<div class="upload-images">
+													<img src="assets/img/features/feature-01.jpg" alt="Upload Image">
+													<a href="javascript:void(0);" class="btn btn-icon btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+												</div>
+												<div class="upload-images">
+													<img src="assets/img/features/feature-02.jpg" alt="Upload Image">
+													<a href="javascript:void(0);" class="btn btn-icon btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div> -->
+							<!-- /Clinic Info -->
+
+							<!-- Contact Details -->
+							<div class="card contact-card">
+								<div class="card-body">
+									<h4 class="card-title">Pricing</h4>
+									<div class="row form-row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Consultation Fee</label>
+												<input type="text" name="consultation_fee" class="form-control" value="{{doctor.consultation_fee}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Report Fee</label>
+												<input type="text" name="report_fee" class="form-control" value="{{doctor.report_fee}}">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Contact Details -->
+							
+							<!-- Education -->
+             
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Education</h4>
+									<div class="education-info">
+										<div class="row form-row education-cont">
+                      {% for education in educations %}
+											<div class="col-12 col-md-10 col-lg-11">
+												<div class="row form-row">
+
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>Degree</label>
+															<input type="text" class="form-control" value="{{education.degree}}">
+														</div> 
+													</div>
+               
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>Institute</label>
+															<input type="text" class="form-control" value="{{education.institute}}">
+														</div> 
+													</div>
+                  
+                         
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>Year of Completion</label>
+															<input type="text" class="form-control" value="{{education.year_of_completion}}">
+														</div> 
+													</div>
+
+												</div>
+											</div>
+
+                      <div class="col-12 col-md-2 col-lg-1">
+                        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+                        <a href="{% url 'delete-education' pk=education.education_id %}" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger">
+                          <i class="far fa-trash-alt"></i>
+                        </a>
+                      </div>
+
+                      {% endfor %}
+
+										</div>
+									</div>
+									<div class="add-more">
+										<a href="javascript:void(0);" class="add-education"><i class="fa fa-plus-circle"></i> Add Education</a>
+									</div>
+								</div>
+                
+							</div>
+              
+            
+							<!-- /Education -->
+						
+							<!-- Experience -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Experience</h4>
+									<div class="experience-info">
+										<div class="row form-row experience-cont">
+                      {% for e in experiences %}
+											<div class="col-12 col-md-10 col-lg-11">
+
+                        
+												<div class="row form-row">
+
+													<div class="col-12 col-md-6 col-lg-3">
+														<div class="form-group">
+															<label>Hospital Name</label>
+															<input type="text" class="form-control" value="{{e.work_place_name}}">
+														</div>
+													</div>
+
+													<div class="col-12 col-md-6 col-lg-3">
+														<div class="form-group">
+															<label>From</label>
+															<input type="text" class="form-control" value="{{e.from_year}}">
+														</div> 
+													</div>
+
+
+													<div class="col-12 col-md-6 col-lg-3">
+														<div class="form-group">
+															<label>To</label>
+															<input type="text" class="form-control" value="{{e.to_year}}">
+														</div> 
+													</div>
+
+													<div class="col-12 col-md-6 col-lg-3">
+														<div class="form-group">
+															<label>Designation</label>
+															<input type="text" class="form-control" value="{{e.designation}}">
+														</div> 
+													</div>
+                          
+												</div>
+                        
+											</div>
+
+                      <div class="col-12 col-md-2 col-lg-1">
+                        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+                        <a href="{% url 'delete-experience' pk=e.experience_id %}" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger">
+                          <i class="far fa-trash-alt"></i>
+                        </a>
+                      </div>
+
+                      {% endfor %}
+
+										</div>
+									</div>
+									<div class="add-more">
+										<a href="javascript:void(0);" class="add-experience"><i class="fa fa-plus-circle"></i> Add Experience</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Experience --> 
+						
+					    <div class="submit-section submit-btn-bottom">
+								<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+							</div>
+            </form>   
+						</div>
+            
+
+       
+          </div>
+        </div>
+      </div>
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/select2/js/select2.min.js' %}"></script>
+
+    <!-- Dropzone JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/dropzone/dropzone.min.js' %}"></script>
+
+    <!-- Bootstrap Tagsinput JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/bootstrap-tagsinput/js/bootstrap-tagsinput.js' %}"></script>
+
+    <!-- Profile Settings JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/doctor-profile-settings.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+
+    <!-- Searchbar JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
+
+	{% if messages %}
+    <script>
+        {% for message in messages %}
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        {% endfor %}
+    </script>
+  {% endif %}
+
+    
+  </body>
+
+  <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
+</html>

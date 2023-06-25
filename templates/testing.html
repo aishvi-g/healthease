@@ -1,0 +1,101 @@
+<h1>Testing</h1>
+
+{{ order }}
+<br>
+
+{{ order.0 }}
+<br>
+
+{{ order.1 }}
+<br>
+
+{{ order.0.item.test_name }}
+<br>
+
+{{ order.0.item.test_info_id }}
+<br>
+
+<hr>
+
+{{ len_ob }}
+<br>
+
+{{ list_id }}
+<br>
+
+{{ list_name }}
+<br>
+
+<hr>
+
+<hr>
+
+{% for i in order_cart %}
+    {{i}}
+    <br>
+{% endfor %}
+<br>
+
+{% for i in order_cart %}
+    {{i.item.test_info_id}}
+    <br>
+    {{i.item.test_name}}
+    <br>
+    {{i.item.test_info_price}}
+    <br>
+{% endfor %}
+<br>
+
+{% comment %} {{ order }}
+<br>
+
+{{ order.0 }}
+<br>
+
+{{ order.1 }}
+<br>
+
+<hr>
+
+{{ order.0.item }}
+<br>
+
+{{ order.0.item.name }}
+<br>
+
+{{ order.1.item.serial_number }}
+<br>
+
+<hr>
+
+{{ len_ob }}
+<br>
+
+{{ list_id }}
+<br>
+
+{{ list_name }}
+<br>
+
+<hr>
+
+{{ order_cart}}
+<br>
+
+{{ order_cart.0}}
+<br>
+
+<hr>
+
+{% for i in order_cart %}
+    {{i}}
+    <br>
+{% endfor %}
+<br>
+
+
+
+ {% endcomment %}
+
+
+

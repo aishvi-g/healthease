@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>HealthEase</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link type="image/x-icon" href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}">
+	
+		<!-- Fancybox CSS -->
+		<link rel="stylesheet" href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="{% static 'HealthStack-System/css/Normal/style.css' %}">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+		<style>
+			.zoom {
+			  transition: transform .2s; /* Animation */
+			}
+			
+			.zoom:hover {
+			  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+			}
+		</style>
+	
+	</head>
+	<body>
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">
+				
+				{% if user.is_authenticated and user.is_patient %}
+				{% include 'patient_navbar.html' %}
+				{% endif %}
+				
+				{% if user.is_authenticated and user.is_doctor %}
+				{% include 'doctor-navbar.html' %}
+				{% endif %}
+			
+			
+			</header>
+			<!-- /Header -->
+			
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+
+									{% if user.is_authenticated and user.is_patient %}
+									<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+									{% endif %}
+
+									{% if user.is_authenticated and user.is_doctor %}
+									<li class="breadcrumb-item"><a href="{% url 'doctor-dashboard' %}">Home</a></li>
+									{% endif %}
+
+
+									<li class="breadcrumb-item active" aria-current="page">Doctor Profile</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Doctor Profile</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+							<!-- Profile Sidebar -->
+							<div>
+								
+								{% if user.is_authenticated and user.is_patient %}
+								{% include 'patient-sidebar.html' %}
+								{% endif %}
+				
+								{% if user.is_authenticated and user.is_doctor %}
+								{% include 'doctor-sidebar.html' %}
+								{% endif %}
+							</div>
+							<!-- /Profile Sidebar -->
+						</div>
+
+						<div class="col-md-7 col-lg-8 col-xl-9">
+
+							<!-- Doctor Widget -->
+							<div class="card">
+								<div class="card-body">
+									<div class="doctor-widget">
+										<div class="doc-info-left">
+											<div class="doctor-img">
+												<img src="{{doctor.featured_image.url}}" class="img-fluid" alt="User Image">
+											</div>
+											<div class="doc-info-cont">
+												<h4 class="doc-name">Dr. {{doctor.name}}</h4>
+												<p class="doc-speciality">{{doctor.department_name.hospital_department_name}}</p>
+												<h4 class="doc-hospital">{{doctor.hospital_name}}</h4>
+												<p class="doc-department">{{doctor.specialization.specialization_name}}</p>
+												{% comment %} <div class="rating">
+													<i class="fas fa-star filled"></i>
+													<i class="fas fa-star filled"></i>
+													<i class="fas fa-star filled"></i>
+													<i class="fas fa-star filled"></i>
+													<i class="fas fa-star"></i>
+													<span class="d-inline-block average-rating">(35)</span>
+												</div> {% endcomment %}
+												<div class="clinic-details">
+													<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Dhaka,Bangladesh</p>
+
+													<ul class="clinic-gallery">
+														<li>
+															<a href="{% static 'HealthStack-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
+																<img src="{% static 'HealthStack-System/images/Normal/gyno1.jpg'%}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'HealthStack-System/images/Normal/gyno2.jpg'%}" data-fancybox="gallery">
+																<img  src="{% static 'HealthStack-System/images/Normal/gyno2.jpg'%}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'HealthStack-System/images/Normal/gyno3.jpg'%}" data-fancybox="gallery">
+																<img src="{% static 'HealthStack-System/images/Normal/gyno3.jpg'%}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'HealthStack-System/images/Normal/gyno4.jpg'%}" data-fancybox="gallery">
+																<img src="{% static 'HealthStack-System/images/Normal/gyno4.jpg'%}" alt="Feature">
+															</a>
+														</li>
+													</ul> 
+
+												</div>
+												{% comment %} <div class="clinic-services">
+													<span>obgyn specialist</span>
+													<span>ultra sonogram</span>
+												</div> {% endcomment %}
+											</div>
+										</div>
+										<div class="doc-info-right">
+											<div class="clini-infos">
+												<ul>
+													{% comment %} <li><i class="far fa-thumbs-up"></i> 99%</li>
+													<li><i class="far fa-comment"></i> 35 Feedback</li> {% endcomment %}
+													<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
+													<li><i class="far fa-money-bill-alt"></i>{{doctor.consultation_fee}} BDT</li>
+												</ul>
+											</div>
+											
+
+											{% if user.is_authenticated and user.is_patient %}
+											<div class="clinic-booking">
+												<a class="apt-btn" href="{% url 'booking' pk=doctor.doctor_id  %}">Book Your Appointment</a>
+											</div>
+											{% endif %}
+
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Doctor Widget -->
+					
+							<!-- Doctor Details Tab -->
+							<div class="card">
+								<div class="card-body pt-0">
+								
+									<!-- Tab Menu -->
+									<nav class="user-tabs mb-4">
+										<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+											<li class="nav-item">
+												<a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#doc_certificate" data-toggle="tab">Certificate</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
+											</li>
+											
+										</ul>
+									</nav>
+									<!-- /Tab Menu -->
+									
+									<!-- Tab Content -->
+									<div class="tab-content pt-0">
+									
+										<!-- Overview Content -->
+										<div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
+											<div class="row">
+												<div class="col-md-12 col-lg-9">
+												
+													<!-- About Details -->
+													<div class="widget about-widget">
+														<h4 class="widget-title">About Me</h4>
+														<p>{{doctor.description}}</p>
+													</div>
+													<!-- /About Details -->
+												
+													<!-- Education Details -->
+													<div class="widget education-widget">
+														<h4 class="widget-title">Education</h4>
+														<div class="experience-box">
+															<ul class="experience-list">
+
+
+																{% for e in educations %}
+																<li>
+																	<div class="experience-user">
+																		<div class="before-circle"></div>
+																	</div>
+																	<div class="experience-content">
+																		<div class="timeline-content">
+																			<a href="#/" class="name">{{e.degree}}</a>
+																			<div>{{e.institute}}</div>
+																			<span class="time">{{e.year_of_completion}}</span>
+																		</div>
+																	</div>
+																</li>
+																{% endfor %}
+															
+
+															</ul>
+														</div>
+													</div>
+													<!-- /Education Details -->
+											
+													<!-- Experience Details -->
+													<div class="widget experience-widget">
+														<h4 class="widget-title">Work & Experience</h4>
+														<div class="experience-box">
+															<ul class="experience-list">
+
+																{% for e in experiences %}
+																<li>
+																	<div class="experience-user">
+																		<div class="before-circle"></div>
+																	</div>
+																	<div class="experience-content">
+																		<div class="timeline-content">
+																			<a href="#/" class="name">{{e.designation}}</a>
+																			<span class="time">{{ e.work_place_name }}</span>
+																			<span class="time">{{ e.from_year }} - {{e.to_year}}</span>
+																		</div>
+																	</div>
+																</li>
+																{% endfor %}
+
+
+														
+
+
+															</ul>
+														</div>
+													</div>
+													<!-- /Experience Details -->
+										
+													
+													
+													
+													<!-- Specializations List -->
+													<div class="service-list">
+														<h4>Visiting Time</h4>
+														<ul class="clearfix">
+															<li>{{doctor.visiting_hour}}</li>
+															
+														</ul>
+													</div>
+													<!-- /Specializations List -->
+
+												</div>
+											</div>
+										</div>
+										<!-- /Overview Content -->
+
+										<!-- Certificate Content -->
+										<div role="tabpanel" id="doc_certificate" class="tab-pane fade">
+											<div class="row">
+
+												<div class="col-md-6 offset-md-3 zoom">
+													<img src="{{doctor.certificate_image.url}}" alt="logo" class="img-fluid">
+															
+												</div>
+												
+											</div>
+										</div>
+										<!-- /Certificate Content -->
+										
+										
+										
+										<!-- Reviews Content -->
+										<div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+
+										
+											{% if user.is_authenticated and user.is_patient %}
+											<div class="write-review">
+												<h4>Write a review for <strong>Dr. {{doctor.name}}</strong></h4>
+												
+												<form action="{% url 'doctor_review' pk=doctor.doctor_id %}" method="POST" enctype="multipart/form-data">
+													{% csrf_token %}
+												  <div class="card card-table">
+													<div class="card-body">
+														<h4 class="card-title"><b>Review</b></h4>
+														<div class="doctor_review-info">
+															<div class="row form-row doctor_review-cont">
+														
+																<div class="col-12 col-md-10 col-lg-11">
+																	<div class="row form-row">
+																		  
+																		  
+																  <div class="col-12 col-md-6 col-lg-8">
+																	<div class="form-group">
+																		<label>Review Title</label>
+																		<input type="text" class="form-control" name="title" id="title">
+																	</div> 
+																  </div>
+																  <div class="col-12 col-md-6 col-lg-8">
+																	<div class="form-group">
+																		<label>Message</label>
+																		<textarea type="text" class="form-control" name="message" id="message" rows="5"></textarea>
+																	</div> 
+																  </div>
+																  
+																	  
+																	  
+														        </div>
+													        </div>
+                                                        </div>
+                                                    </div>
+											
+										           </div>
+								
+												   <div class="submit-section submit-btn-bottom">
+													<button type="submit" class="btn btn-primary submit-btn">Save Review</button>
+												   </div>
+												   	
+											    </form>
+											</div>
+											{% endif %}
+
+											{% if user.is_authenticated and user.is_doctor %}
+											<!-- Review Listing -->
+									<div class="widget review-listing">
+										<ul class="comments-list">
+										
+										
+											<div class="invoice-item invoice-table-wrap">
+												<div class="widget education-widget">
+													<h4 class="widget-title">Review</h4>
+													<div class="experience-box">
+														<ul class="experience-list">
+
+
+															<div class="invoice-item">
+																<div class="row">
+																	<div class="col-md-6">
+																		<div class="invoice-info">
+																			<strong class="customer-text"></strong>
+													                        {% for review in doctor_review %}
+																				<!-- Comment List -->
+																				<li>
+																					<div class="comment">
+																						<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{review.patient.featured_image.url}}">
+																						<div class="comment-body">
+																							<div class="meta-data">
+																								<span class="comment-author">{{review.patient.name}}</span>
+																								
+																							</div>
+																							<p class="recommended"><i class="far fa-thumbs-up"></i> {{review.title}}</p>
+																							<p class="comment-content">{{review.message}}
+																							
+																							</p>
+																							
+																						</div>
+																					</div>	
+																				</li>
+																				<!-- /Comment List -->
+																			
+																			{% endfor %}
+													
+																		</div>
+																	</div>
+														
+																</div>
+															</div>
+															
+															
+														
+
+														</ul>
+													</div>
+												</div>
+											</div>
+											{% endif %}
+										</div>
+										<!-- /Reviews Content -->
+										
+										
+								
+										
+									</div>
+								</div>
+						</div>
+					</div>
+					<!-- /Doctor Details Tab -->
+
+				</div>
+			</div>		
+			<!-- /Page Content -->
+   
+			<!-- Footer -->
+			{% include 'footer.html' %}
+			<!-- /Footer -->
+		   
+		</div>
+		<!-- /Main Wrapper -->
+		
+		<!-- Voice Call Modal -->
+		<div class="modal fade call-modal" id="voice_call">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<!-- Outgoing Call -->
+						<div class="call-box incoming-box">
+							<div class="call-wrapper">
+								<div class="call-inner">
+									<div class="call-user">
+										<img alt="User Image" src="assets/img/doctors/doctor-thumb-02.jpg" class="call-avatar">
+										<h4>Dr. Darren Elder</h4>
+										<span>Connecting...</span>
+									</div>							
+									<div class="call-items">
+										<a href="javascript:void(0);" class="btn call-item call-end" data-dismiss="modal" aria-label="Close"><i class="material-icons">call_end</i></a>
+										<a href="voice-call.html" class="btn call-item call-start"><i class="material-icons">call</i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Outgoing Call -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Voice Call Modal -->
+		
+		<!-- Video Call Modal -->
+		<div class="modal fade call-modal" id="video_call">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+					
+						<!-- Incoming Call -->
+						<div class="call-box incoming-box">
+							<div class="call-wrapper">
+								<div class="call-inner">
+									<div class="call-user">
+										<img class="call-avatar" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+										<h4>Dr. Darren Elder</h4>
+										<span>Calling ...</span>
+									</div>							
+									<div class="call-items">
+										<a href="javascript:void(0);" class="btn call-item call-end" data-dismiss="modal" aria-label="Close"><i class="material-icons">call_end</i></a>
+										<a href="video-call.html" class="btn call-item call-start"><i class="material-icons">videocam</i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Incoming Call -->
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Video Call Modal -->
+		
+	
+		<!-- jQuery -->
+		<script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+		<script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+		
+		<!-- Fancybox JS -->
+		<script src="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
+		
+
+		<!-- Custom JS -->
+		<script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+
+		<!-- Searchbar JS -->
+		<script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
+		
+	</body>
+
+<!-- doccure/doctor-profile.html  30 Nov 2019 04:12:16 GMT -->
+</html>

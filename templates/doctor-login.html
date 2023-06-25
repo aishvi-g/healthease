@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/login.html  30 Nov 2019 04:12:20 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <title>HealthEase</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="account-page">
+    <!-- Main Wrapper -->
+
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'navbar_home.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Page Content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8 offset-md-2">
+              <!-- Login Tab Content -->
+              <div class="account-content">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-md-7 col-lg-6 login-left">
+                    <img
+                      src="{% static 'HealthStack-System/images/Normal/login-banner.png' %}"
+                      class="img-fluid"
+                      alt="Doccure Login"
+                    />
+                  </div>
+                  <div class="col-md-12 col-lg-6 login-right">
+                    <div class="login-header">
+                      <h3>
+                        Login <span>Doctor</span>
+                        <a href="{% url 'login' %}"text-decoration: none;>Are you a patient?</a>
+                      </h3>
+                    </div>
+
+                    <form method="POST" action="{% url 'doctor-login' %}">
+                      {% csrf_token %}
+
+                      {% include 'message.html' %}
+                      {% comment %} {% if messages %}
+                          {% for message in messages %}
+                          <div class="alert alert-danger alert-dismissible fade show" id="CredentialCheck" role="alert">
+                            <a href="#" class="alert-link"></a><a{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</a>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          {% endfor %}
+                      
+                      {% endif %} {% endcomment %}
+
+                      <div class="form-floating mt-3 mb-3">
+                        <input type="text" class="form-control" name='username' id="floatingInput" placeholder="User Name">
+                        <label for="floatingInput">User Name</label>
+                      </div>
+
+                      <div class="form-floating mt-3 mb-3">
+                        <input type="password" class="form-control" name='password' id="myInput" placeholder="Password"> 
+                        <label for="floatingInput">Password</label>
+                        
+                        <input type="checkbox" class="mt-2" onclick="myFunction11()">Show Password
+                        
+                      </div>
+
+                      <div class="text-right">
+                        <a
+                          class="forgot-link"
+                          href="{% url 'reset-password' %}" style="text-decoration: none;"
+                          >Forgot Password ?</a
+                        >
+                      </div>
+                      <button
+                        class="btn btn-primary btn-block btn-lg login-btn"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                      <!-- <div class="login-or">
+                        <span class="or-line"></span>
+                        <span class="span-or">or</span>
+                      </div> -->
+                      <!-- <div class="row form-row social-login">
+                        <div class="col-6">
+                          <a href="#" class="btn btn-facebook btn-block"
+                            ><i class="fab fa-facebook-f mr-1"></i> Login</a
+                          >
+                        </div>
+                        <div class="col-6">
+                          <a href="#" class="btn btn-google btn-block"
+                            ><i class="fab fa-google mr-1"></i> Login</a
+                          >
+                        </div>
+                      </div> -->
+                      <div class="text-center dont-have">
+                        Don't have an account?
+                        <a href="{% url 'doctor-register' %}" style="text-decoration: none;">Register</a>
+                        <br>
+                        <b>Want to login as 
+                        <a href="{% url 'admin-login' %}" style="color: skyblue;text-decoration: none;"> Admin? </a></b>
+                      </div>
+ 
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /Login Tab Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <!-- Custom JS -->
+    <!-- <script src="{% static 'HealthStack-System/js/Normal/script.js' %}"></script> -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+
+    <!-- alert js -->
+    <script>
+			var x = document.getElementById('CredentialCheck');
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			}
+			$('#CredentialCheck').delay(4000).fadeOut('slow');     
+		</script>
+
+    <!-- show password js -->
+    <script>
+      function myFunction11() {
+      var x = document.getElementById('myInput');
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+      }
+    </script>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        {% endfor %}
+    </script>
+  {% endif %}
+
+
+
+
+  </body>
+
+  <!-- doccure/login.html  30 Nov 2019 04:12:20 GMT -->
+</html>

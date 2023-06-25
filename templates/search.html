@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/search.html  30 Nov 2019 04:12:16 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>HealthEase</title>
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Datetimepicker CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normalbootstrap-datetimepicker.min.css' %}"
+    />
+
+    <!-- Select2 CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/select2/css/select2.min.css'%}"
+    />
+
+    <!-- Fancybox CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.css'%}"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- <link rel="stylesheet"href="{% static 'HealthStack-System/css/Normal/search2.css' %}"> -->
+    <link rel="stylesheet"href="{% static 'HealthStack-System/css/Normal/search3.css' %}">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'patient_navbar.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+            
+						<div class="col-md-6 col-6">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{% url 'patient-dashboard' %}">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Search Doctor</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Search Doctor</h2>
+						</div>
+
+						<div class="col-md-6 col-6">
+							<div class="top-nav-search">
+								<form action="{% url 'search' %}" method="GET">
+									<input type="text" class="form-control" placeholder="Search doctor" name="search_query" value="{{search_query}}">
+									<button class="btn" type="submit"><i class="fa fa-search"></i></button>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+      <!-- /Breadcrumb -->
+
+      <!-- Page Content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Profile Sidebar -->
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+              <div>{% include 'patient-sidebar.html' %}</div>
+            </div>
+            <!-- / Profile Sidebar -->
+
+            <div class="col-md-12 col-lg-8 col-xl-9">
+              {% for doctor in doctors %}
+              <!-- Doctor Widget -->
+              <div class="card">
+                <div class="card-body">
+                  <div class="doctor-widget">
+                    <div class="doc-info-left">
+                      <div class="doctor-img">
+                        <a href="{% url 'doctor-profile' pk=doctor.doctor_id %}">
+                          <img
+                            src="{{ doctor.featured_image.url }}"
+                            class="img-fluid"
+                            alt="User Image"
+                          />
+                        </a>
+                      </div>
+                      <div class="doc-info-cont">
+                        <h4 class="doc-name">
+                          <a href="{% url 'doctor-profile' pk=doctor.doctor_id %}">Dr. {{doctor.name}}</a>
+                        </h4>
+                        <p class="doc-speciality"><b>Department: </b>{{ doctor.department_name.hospital_department_name }}</p>
+                        <h5 class="doc-department"><b>Specialization: </b>
+                          {{ doctor.specialization.specialization_name }}
+                        </h5>
+                        
+                        <div class="clinic-details">
+                          <p class="doc-location">
+                            <i class="fas fa-map-marker-alt"></i> <b>Hospital: </b>
+                            {{doctor.hospital_name}}
+                          </p>
+                          <ul class="clinic-gallery">
+                            <li>
+                              <a
+                                href="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                                data-fancybox="gallery"
+                              >
+                                <img
+                                  src="{% static 'HealthStack-System/images/Normal/features/feature-01.jpg'%}"
+                                  alt="Feature"
+                                />
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                                data-fancybox="gallery"
+                              >
+                                <img
+                                  src="{% static 'HealthStack-System/images/Normal/features/feature-02.jpg'%}"
+                                  alt="Feature"
+                                />
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="clinic-services">
+                          <span>Dental Fillings</span>
+                          <span> Whitneing</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="doc-info-right">
+                      <div class="clini-infos">
+                        <ul>
+                          <li></li>
+                          <li></li>
+                          <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{doctor.hospital_name}}
+                          </li>
+                          <li>
+                            <i class="far fa-money-bill-alt"></i>
+                            {{doctor.consultation_fee}} BDT
+                            
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="clinic-booking">
+                        <a class="view-pro-btn" href="{% url 'doctor-profile' pk=doctor.doctor_id %}"
+                          >View Profile</a
+                        >
+                        <a
+                          class="apt-btn"
+                          href="{% url 'booking' pk=doctor.doctor_id %}"
+                          >Book Appointment</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Doctor Widget -->
+              {% endfor %}
+
+              <div class="load-more text-center">
+                <a class="btn btn-primary btn-sm" href="javascript:void(0);"
+                  >Load More</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/select2/js/select2.min.js'%}"></script>
+
+    <!-- Datetimepicker JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/moment.min.js'%}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap-datetimepicker.min.js'%}"></script>
+
+    <!-- Fancybox JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/fancybox/jquery.fancybox.min.js'%}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  </body>
+
+  <!-- doccure/search.html  30 Nov 2019 04:12:16 GMT -->
+</html>

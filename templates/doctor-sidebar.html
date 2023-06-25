@@ -1,0 +1,123 @@
+{% load static %}
+
+<div class="profile-sidebar">
+  <div class="widget-profile pro-widget-content">
+    <div class="profile-info-widget">
+      <a href="#" class="booking-doc-img">
+        <img
+          src="{{ doctor.featured_image.url }}"
+          alt="User Image"
+        />
+      </a>
+      <div class="profile-det-info">
+        <h3>{{ doctor.name }}</h3>
+
+        <div class="patient-details">
+          <h5 class="mb-0">{{doctor.specialization.specialization_name}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-widget">
+    <nav class="dashboard-menu sidebar">
+      <ul>
+        <li class="active">
+          <a href="{% url 'doctor-dashboard' %}">
+            <i class="fas fa-columns"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+        <a href="{% url 'doctor-profile' pk=doctor.doctor_id %}">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+
+
+        <li>
+          <a href="{% url 'appointments'%}">
+            <i class="fas fa-user-circle"></i>
+            <span>Appoinment</span>
+          </a>
+        </li>
+        <li class="nav-item has-submenu">
+          
+            <a href="#" class="nav-link"><i class="fas fa-search"></i><span>Patient ID</span></a>
+              <ul class="submenu collapse" style="padding:19px">
+                  <!-- <li><a class="nav-link" href="#">Search</a></li> -->
+                  <form action="{% url 'patient-search' pk=doctor.doctor_id%}"   method="GET"> 
+                  <input type="text" class="form-control" placeholder="search" name="search_query" value="{{search_query}}">
+                  </form>
+                </ul>
+          
+        </li>
+        
+        <li>
+          <a href="{% url 'multiple-hospital' %}">
+            <i class="fas fa-hospital"></i>
+            <span>Multiple Hospital</span>
+          </a>
+      </li>
+        <li>
+          <a href="{% url 'my-patients' %}">
+            <i class="fas fa-user-injured"></i>
+            <span>My Patients</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'doctor-test-list'%}" target="_blank">
+            <i class="fas fa-hourglass-start"></i>
+            <span>Test Information</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a href="invoices.html">
+            <i class="fas fa-file-invoice"></i>
+            <span>Invoices</span>
+          </a>
+        </li> -->
+        <!-- <li>
+          <a href="reviews.html">
+            <i class="fas fa-star"></i>
+            <span>Reviews</span>
+          </a>
+        </li> -->
+        <!-- <li>
+          <a href="chat-doctor.html">
+            <i class="fas fa-comments"></i>
+            <span>Message</span>
+            <small class="unread-msg">23</small>
+          </a>
+        </li> -->
+        <li>
+          <a
+            href="{% url 'doctor-profile-settings' %}"
+          >
+            <i class="fas fa-user-cog"></i>
+            <span>Profile Settings</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a href="social-media.html">
+            <i class="fas fa-share-alt"></i>
+            <span>Social Media</span>
+          </a>
+        </li> -->
+        <li>
+          <a href="{% url 'doctor-change-password' pk=user.id%}">
+            <i class="fas fa-lock"></i>
+            <span>Change Password</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'doctor-logout'%}">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

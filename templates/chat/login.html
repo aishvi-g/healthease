@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %} {% load crispy_forms_tags %}
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App using Django</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body class='bg-dark text-light'>
+    <div class="container h-100 d-flex flex-column justify-content-center">
+        <div class="col-md-6 offset-md-3">
+            <div class="card bg-dark card-outline-primary">
+                <div class="card-header">
+                    <h5 class="card-title">Login</h5>
+                </div>
+                <div class="card-body">
+                    {% if messages %} {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %} {% endif %}
+                    <form id="login-frm" method="POST">
+                        {% csrf_token %}
+                        <!-- <div class="from-group">
+                            <label for="username" class="control-label">Username</label>
+                            <input type="text" class='form-control' name="username" required>
+                        </div>
+                        <div class="from-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" class='form-control' name="password" required>
+                        </div> -->
+                        {{form|crispy}}
+                        <div class="from-group">
+                            <div class="mt-2 d-flex w-100 justify-content-end">
+                                <button class="btn btn-primary rounded-0 btn-sm mr-2">Login</button>
+                                <a class="btn btn-light rounded-0 btn-sm" href="/register">Register</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function() {})
+</script>
+
+</html>

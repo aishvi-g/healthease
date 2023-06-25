@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:03 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>HealthEase</title>
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href=" {% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  {% if user.is_authenticated %}
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'doctor-navbar.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'hospital_home'%}">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Doctor
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Dashboard
+                  </li>
+                </ol>
+              </nav>
+              <h2 class="breadcrumb-title">Doctor Dashboard</h2>{% include 'message.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Breadcrumb -->
+
+      <!-- Page Content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+              <!-- Profile Sidebar -->
+              <div>{% include 'doctor-sidebar.html' %}</div>
+              <!-- /Profile Sidebar -->
+            </div>
+
+            <div class="col-md-7 col-lg-8 col-xl-9">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card dash-card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12 col-lg-4">
+                          <div class="dash-widget dct-border-rht">
+                            <div class="circle-bar circle-bar1">
+                              <div class="circle-graph1" data-percent="75">
+                                <img
+                                  src="{% static 'HealthStack-System/images/Normal/icon-01.png' %}"
+                                  class="img-fluid"
+                                  alt="patient"
+                                />
+                              </div>
+                            </div>
+                            <div class="dash-widget-info">
+                              <h6>Next Day Appoinment</h6>
+                              <h3>{{next_days_appointment}}</h3>
+                              <p class="text-muted">{{next_date}}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-4">
+                          <div class="dash-widget dct-border-rht">
+                            <div class="circle-bar circle-bar2">
+                              <div class="circle-graph2" data-percent="65">
+                                <img
+                                  src="{% static 'HealthStack-System/images/Normal/icon-02.png' %}"
+                                  class="img-fluid"
+                                  alt="Patient"
+                                />
+                              </div>
+                            </div>
+                            <div class="dash-widget-info">
+                              <h6>Today Patient</h6>
+                              <h3>{{today_patient_count.count}}</h3>
+                              <p class="text-muted">{{current_date}}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-4">
+                          <div class="dash-widget">
+                            <div class="circle-bar circle-bar3">
+                              <div class="circle-graph3" data-percent="50">
+                                <img
+                                  src="{% static 'HealthStack-System/images/Normal/icon-03.png' %}"
+                                  class="img-fluid"
+                                  alt="Patient"
+                                />
+                              </div>
+                            </div>
+                            <div class="dash-widget-info">
+                              <h6>Total Appoinments</h6>
+                              <h3>{{total_appointments_count.count}}</h3>
+                              <p class="text-muted">{{current_date}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="mb-4">Patient Appoinment</h4>
+                  <div class="appointment-tab">
+                    <!-- Appointment Tab -->
+                    <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                      {% comment %} <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          href="#upcoming-appointments"
+                          data-toggle="tab"
+                          >Upcoming</a
+                        >
+                      </li> {% endcomment %}
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          href="#today-appointments"
+                          data-toggle="tab"
+                          >Today</a
+                        >
+                      </li>
+                    </ul>
+                    <!-- /Appointment Tab -->
+
+                    {% comment %} <div class="tab-content">
+                      <!-- Upcoming Appointment Tab -->
+                      <div
+                        class="tab-pane show active"
+                        id="upcoming-appointments"
+                      >
+                        <div class="card card-table mb-0">
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table
+                                class="table table-hover table-center mb-0"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th>Patient Name</th>
+                                    <th>Appt Date</th>
+                                    <th>Purpose</th>
+                                    <th>Contact</th>
+                                    <th>Payment Status</th>
+                                    <th>Appoinment Status</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  {% for appointment in appointments %}
+                                  <tr>
+                                    <td>
+                                      <h2 class="table-avatar">
+                                        <a
+                                          href="patient-profile.html"
+                                          class="avatar avatar-sm mr-2"
+                                          ><img
+                                            class="avatar-img rounded-circle"
+                                            src="{{appointment.patient.featured_image.url}}"
+                                            alt="User Image"
+                                        /></a>
+                                        <a href="patient-profile.html">{{appointment.patient.name}}<span>#PT{{appointment.serial_number}}</span></a>
+                                      </h2>
+                                    </td>
+                                    <td>
+                                      {{appointment.date}}
+                                      <span class="d-block text-info"
+                                        >{{appointment.time}}</span
+                                      >
+                                    </td>
+                                    <td>{{ appointment.appointment_type }}</td>
+                                    <td>
+                                      {{appointment.patient.email}}
+                                      <span class="d-block text-info"
+                                        >Phone: {{appointment.patient.phone_number}}</span
+                                      >
+                                    </td>
+                                    <td>
+                                      {% if appointment.payment_status == 'pending' %}
+                                      <span class="badge badge-pill bg-warning-light">Pending</span>
+                                      {% endif %}
+                                      {% if appointment.payment_status == 'VALID' %}
+                                      <span class="badge badge-pill bg-success-light">Paid</span>
+                                      {% endif %}
+                                    </td>
+                                    <td>
+                                      {% if appointment.appointment_status == 'pending' %}
+                                      <span class="badge badge-pill bg-warning-light">Pending</span>
+                                      {% endif %}
+                                      {% if appointment.appointment_status == 'confirmed' %}
+                                      <span class="badge badge-pill bg-success-light">Confirmed</span>
+                                      {% endif %}
+                                      {% if appointment.appointment_status == 'cancelled' %}
+                                      <span class="badge badge-pill bg-danger-light">Cancelled</span>
+                                      {% endif %}
+                                    </td>
+                                    <td class="text-right">
+                                      <div class="table-action">
+                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                          <i class="far fa-eye"></i> View
+                                        </a>
+
+                                        <a href="{% url 'accept-appointment' pk=appointment.id %}" onclick="return confirm('Accept appointment?');" class="btn btn-sm bg-success-light">
+                                          <i class="fas fa-check"></i> Accept
+                                        </a>
+                                        <a href="{% url 'reject-appointment' pk=appointment.id %}" onclick="return confirm('Reject Appointment?');" class="btn btn-sm bg-danger-light">
+                                          <i class="fas fa-times"></i> Cancel
+                                        </a>
+                                      </div>
+                                    </td>
+                    
+                                  </tr>
+                                  {% endfor %} 
+
+                               
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Upcoming Appointment Tab --> {% endcomment %}
+
+                      <!-- Today Appointment Tab -->
+                      <div class="tab-pane" id="today-appointments">
+                        <div class="card card-table mb-0">
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table
+                                class="table table-hover table-center mb-0"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th>Patient Name</th>
+                                    <th>Appt Date</th>
+                                    <th>Purpose</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  {% for today in today_appointments %}
+                                  <tr>
+                                    <td>
+                                      <h2 class="table-avatar">
+                                        <a
+                                          href="patient-profile.html"
+                                          class="avatar avatar-sm mr-2"
+                                          ><img
+                                            class="avatar-img rounded-circle"
+                                            src="{{ today.patient.featured_image.url }}"
+                                            alt="User Image"
+                                        /></a>
+                                        <a href="patient-profile.html">{{today.patient.name}}<span>#PT{{today.serial_number}}</span></a>
+                                      </h2>
+                                    </td>
+                                    <td>{{today.date}}<span class="d-block text-info">{{today.time}}</span></td>
+                                    <td>{{ today.appointment_type }}</td>
+                                    <td>
+                                      {{today.patient.email}}
+                                      <span class="d-block text-info"
+                                        >+880{{today.patient.phone_number}}</span
+                                      >
+                                    </td>
+                                    <td>
+                                      {% if today.appointment_status == 'pending' %}
+                                      <span class="badge badge-pill bg-warning-light">Pending</span>
+                                      {% endif %}
+                                      {% if today.appointment_status == 'confirmed' %}
+                                      <span class="badge badge-pill bg-success-light">Confirmed</span>
+                                      {% endif %}
+                                    </td>
+                                  
+                                  </tr>
+                                  {% endfor %}
+                 
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Today Appointment Tab -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+  {% else %} 
+  <p> You are not logged in </p> 
+  {% endif %}
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+    <script src="{% static 'HealthStack-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+    <!-- Circle Progress JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/circle-progress.min.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+
+    <!-- Searchbar JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        {% endfor %}
+    </script>
+  {% endif %}
+
+
+  </body>
+
+  <!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:09 GMT -->
+</html>
