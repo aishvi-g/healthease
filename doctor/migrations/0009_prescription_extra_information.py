@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='prescription',
             name='extra_information',
             field=models.TextField(blank=True, null=True),

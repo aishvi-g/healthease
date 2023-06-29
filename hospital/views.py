@@ -153,6 +153,8 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
 
+        print(username, password)
+
         try:
             user = User.objects.get(username=username)
         except:
