@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'sslcommerz.apps.SslcommerzConfig',
     'widget_tweaks',
     'rest_framework',
-    'ChatApp.apps.ChatappConfig',
+    # 'ChatApp.apps.ChatappConfig',
     'debug_toolbar',
  
 

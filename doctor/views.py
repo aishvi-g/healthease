@@ -85,7 +85,8 @@ def patient_id(request):
 def logoutDoctor(request):
     user = User.objects.get(id=request.user.id)
     if user.is_doctor:
-        user.login_status == "offline"
+        # user.login_status == "offline"
+        user.login_status == True
         user.save()
         logout(request)
     

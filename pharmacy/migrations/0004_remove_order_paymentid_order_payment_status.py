@@ -14,9 +14,9 @@ class Migration(migrations.Migration):
             model_name='order',
             name='paymentId',
         ),
-        migrations.AddField(
-            model_name='order',
-            name='payment_status',
-            field=models.CharField(blank=True, max_length=200, null=True),
-        ),
+        # migrations.AddField(
+        #     model_name='order',
+        #     name='payment_status',
+        #     field=models.CharField(blank=True, max_length=200, null=True),
+        # ),
     ]
