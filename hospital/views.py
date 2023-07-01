@@ -294,6 +294,9 @@ def search(request):
         # patient = Patient.objects.get(user_id=pk)
         patient = Patient.objects.get(user=request.user)
         doctors = Doctor_Information.objects.filter(register_status='Accepted')
+        print(Doctor_Information.objects)
+        print(doctors)
+        # doctors = Doctor_Information.objects
         
         doctors, search_query = searchDoctors(request)
         context = {'patient': patient, 'doctors': doctors, 'search_query': search_query}
