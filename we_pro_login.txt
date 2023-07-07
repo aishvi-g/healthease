@@ -1,0 +1,5 @@
+Cluster: funny-shark
+YSQL Username: admin
+YSQL Password: 6G-xe673sXMv6dBSbs7GSk_n8-i_pH
+YCQL Username: admin
+YCQL Password: 6G-xe673sXMv6dBSbs7GSk_n8-i_pH

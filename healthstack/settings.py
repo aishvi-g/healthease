@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import environ
+import django_yugabytedb
 # django-environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,7 +34,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1','5749-103-109-53-5.in.ngrok.io']
+ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1','ap-south-1.952854bb-770a-4001-9ae1-f2c0a7119714.aws.ybdb.io']
 # ALLOWED_HOSTS = ['mobile view', 'local host','ngrok -- keeps on changing']
 
 # Application definition
@@ -57,6 +58,12 @@ INSTALLED_APPS = [
  
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'UNAUTHENTICATED_USER': None,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,13 +116,28 @@ WSGI_APPLICATION = 'healthstack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'HealthEase',
+        'NAME': 'yugabyte',
         'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PASSWORD': '6G-xe673sXMv6dBSbs7GSk_n8-i_pH',
+        'HOST': 'ap-south-1.952854bb-770a-4001-9ae1-f2c0a7119714.aws.ybdb.io',
+        'PORT': '5433',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'yb_backend',
+#         'NAME': 'HEALTHEASE',
+#         'HOST': 'localhost',
+#         'PORT': 5433,
+#         'USER': 'admin',
+#         'PASSWORD': 'admin',
+#         'CONN_MAX_AGE': None
+#     }
+# }
+
+# Connect to yugabyteDB using credentials
+
 
 
 # Password validation
