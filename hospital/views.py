@@ -104,10 +104,10 @@ def resetPassword(request):
             html_message = render_to_string('mail_template.html', {'values': values})
             plain_message = strip_tags(html_message)
             
-            try:
-                send_mail(subject, plain_message, 'admin@example.com',  [user.email], html_message=html_message, fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
+            # try:
+            #     send_mail(subject, plain_message, 'admin@example.com',  [user.email], html_message=html_message, fail_silently=False)
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid header found.')
             return redirect ("password_reset_done")
 
     context = {'form': form}

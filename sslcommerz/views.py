@@ -380,10 +380,10 @@ def ssl_payment_success(request):
             html_message = render_to_string('appointment_mail_payment_template.html', {'values': values})
             plain_message = strip_tags(html_message)
             
-            try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found')
+            # try:
+            #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid header found')
     
             return redirect('patient-dashboard')
         
@@ -456,10 +456,10 @@ def ssl_payment_success(request):
             html_message = render_to_string('test_mail_payment_template.html', {'values': values})
             plain_message = strip_tags(html_message)
             
-            try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found')
+            # try:
+            #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid header found')
             
             # Reset cart
             testCart.objects.all().delete()
@@ -529,10 +529,10 @@ def ssl_payment_success(request):
             html_message = render_to_string('pharmacy_mail_payment_template.html', {'values': values})
             plain_message = strip_tags(html_message)
             
-            try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found')
+            # try:
+            #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid header found')
             
             # Reset cart
             Cart.objects.all().delete()

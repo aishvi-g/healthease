@@ -116,14 +116,14 @@
                           ><span class="med-records">Medical Records</span></a
                         >
                       </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a
                           class="nav-link"
                           href="#pat_billing"
                           data-toggle="tab"
                           >Billing</a
                         >
-                      </li>
+                      </li> -->
                     </ul>
                   </nav>
                   <!-- /Tab Menu -->
@@ -146,8 +146,8 @@
                                   <th>Type</th>
                                   <th>Amount</th>
                                   <th>Status</th>
-                                  <th>Payment Status</th>
-                                  <th>Action</th>
+                                  <!-- <th>Payment Status</th>
+                                  <th>Action</th> -->
                                 </tr>
                               </thead>
                               <tbody>
@@ -197,17 +197,17 @@
                                     <span class="badge badge-pill bg-danger-light">Cancelled</span>
                                     {% endif %}
                                   </td>
-                                  <td class="text-center">
+                                  <!-- <td class="text-center">
                                     {% if appointment.payment_status == 'pending' %}
                                     <span class="badge badge-pill bg-warning-light">Pending</span>
                                     {% endif %}
                                     {% if appointment.payment_status == 'VALID' %}
                                     <span class="badge badge-pill bg-success-light">Paid</span>
                                     {% endif %}
-                                  </td>
+                                  </td> -->
 
-                                  <td >
-                                    <div class="table-action">
+                                  <!-- <td > -->
+                                    <!-- <div class="table-action">
                                       <a
                                         href="{% url 'ssl-payment-request' pk=appointment.patient.patient_id id=appointment.id %}"
                                         class="btn btn-sm bg-success-light"
@@ -216,8 +216,8 @@
                                         Now
                                       </a>
                                       
-                                    </div>
-                                  </td>
+                                    </div> -->
+                                  <!-- </td> -->
                                 </tr>
                                 {% endfor %}
                               </tbody>
@@ -406,11 +406,11 @@
                                       >
                                     </h2>
                                   </td>
-                                  <td>{{payment.transaction_id}}</td>
+                                  <!-- <td>{{payment.transaction_id}}</td>
                                   <td>{{payment.transaction_date}}</td>
                                   <td>{{payment.currency_amount}} BDT</td>
                                   <td>{{payment.card_type}}</td>
-                                  <td>{{payment.card_issuer}}</td>
+                                  <td>{{payment.card_issuer}}</td> -->
                                   <td>
                                     {% if payment.status == 'VALID' %}
                                     <span class="badge badge-pill bg-success-light">Success</span>
@@ -486,13 +486,13 @@
     <script src="{% static 'HealthStack-System/js/Normal/sidebar.js' %}"></script>
 
     {% if messages %}
-    <script>
+    <!-- <script>
         {% for message in messages %}
             $(document).ready(function () {
                 $('.toast').toast('show');
             });
         {% endfor %}
-    </script>
+    </script> -->
   {% endif %}
 
 

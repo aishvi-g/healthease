@@ -545,10 +545,10 @@ def create_report(request, pk):
             html_message = render_to_string('hospital_admin/report-mail-delivery.html', {'values': values})
             plain_message = strip_tags(html_message)
 
-            try:
-                send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found') 
+            # try:
+            #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [patient_email], html_message=html_message, fail_silently=False)
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid header found') 
 
             return redirect('mypatient-list')
 
@@ -882,10 +882,10 @@ def accept_doctor(request,pk):
     html_message = render_to_string('hospital_admin/accept-doctor-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
-    try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
-    except BadHeaderError:
-        return HttpResponse('Invalid header found')
+    # try:
+    #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
+    # except BadHeaderError:
+    #     return HttpResponse('Invalid header found')
 
     messages.success(request, 'Doctor Accepted!')
     return redirect('register-doctor-list')
@@ -918,10 +918,10 @@ def reject_doctor(request,pk):
     html_message = render_to_string('hospital_admin/reject-doctor-mail.html', {'values': values})
     plain_message = strip_tags(html_message)
 
-    try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
-    except BadHeaderError:
-        return HttpResponse('Invalid header found')
+    # try:
+    #     send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
+    # except BadHeaderError:
+    #     return HttpResponse('Invalid header found')
     
     messages.success(request, 'Doctor Rejected!')
     return redirect('register-doctor-list')
