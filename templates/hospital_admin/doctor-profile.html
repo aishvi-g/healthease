@@ -137,7 +137,7 @@
 												<span class="d-inline-block average-rating">(35)</span>
 											</div>
 											<div class="clinic-details">
-												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Dhaka,Bangladesh</p>
+												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Paschim Vihar,New Delhi</p>
 												<ul class="clinic-gallery">
 													<li>
 														<a href="{% static 'HealthStack-System/images/Normal/gyno1.jpg'%}" data-fancybox="gallery">
@@ -172,7 +172,7 @@
 											<ul>
 												<li><i class="far fa-thumbs-up"></i> 99%</li>
 												<li><i class="far fa-comment"></i> 35 Feedback</li>
-												<li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
+												<li><i class="fas fa-map-marker-alt"></i> Paschim Vihar, New Delhi</li>
 												<li><i class="far fa-money-bill-alt"></i>{{doctor.consultation_fee}} BDT</li>
 											</ul>
 										</div>
@@ -326,17 +326,17 @@
 													<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{% static 'HealthStack-System/images/Normal/patients/patient.jpg' %}">
 													<div class="comment-body">
 														<div class="meta-data">
-															<span class="comment-author">Richard Wilson</span>
+															<span class="comment-author">Namya Jain</span>
 															<span class="comment-date">Reviewed 2 Days ago</span>
-															<div class="review-count rating">
+															<!-- <div class="review-count rating">
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star"></i>
-															</div>
+															</div> -->
 														</div>
-														<p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
+														<!-- <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p> -->
 														<p class="comment-content">
 															Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 															sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -347,7 +347,7 @@
 															<a class="comment-btn" href="#">
 																<i class="fas fa-reply"></i> Reply
 															</a>
-														<p class="recommend-btn">
+														<!-- <p class="recommend-btn">
 															<span>Recommend?</span>
 															<a href="#" class="like-btn">
 																<i class="far fa-thumbs-up"></i> Yes
@@ -355,7 +355,7 @@
 															<a href="#" class="dislike-btn">
 																<i class="far fa-thumbs-down"></i> No
 															</a>
-														</p>
+														</p> -->
 														</div>
 													</div>
 												</div>
@@ -369,13 +369,13 @@
 																<div class="meta-data">
 																	<span class="comment-author">Charlene Reed</span>
 																	<span class="comment-date">Reviewed 3 Days ago</span>
-																	<div class="review-count rating">
+																	<!-- <div class="review-count rating">
 																		<i class="fas fa-star filled"></i>
 																		<i class="fas fa-star filled"></i>
 																		<i class="fas fa-star filled"></i>
 																		<i class="fas fa-star filled"></i>
 																		<i class="fas fa-star"></i>
-																	</div>
+																	</div> -->
 																</div>
 																<p class="comment-content">
 																	Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -387,7 +387,7 @@
 																	<a class="comment-btn" href="#">
 																		<i class="fas fa-reply"></i> Reply
 																	</a>
-																	<p class="recommend-btn">
+																	<!-- <p class="recommend-btn">
 																		<span>Recommend?</span>
 																		<a href="#" class="like-btn">
 																			<i class="far fa-thumbs-up"></i> Yes
@@ -395,7 +395,7 @@
 																		<a href="#" class="dislike-btn">
 																			<i class="far fa-thumbs-down"></i> No
 																		</a>
-																	</p>
+																	</p> -->
 																</div>
 															</div>
 														</div>
@@ -412,15 +412,15 @@
 													<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{% static 'HealthStack-System/images/Normal/patients/patient2.jpg' %}">
 													<div class="comment-body">
 														<div class="meta-data">
-															<span class="comment-author">Travis Trimble</span>
+															<span class="comment-author">Sanjay Sharma</span>
 															<span class="comment-date">Reviewed 4 Days ago</span>
-															<div class="review-count rating">
+															<!-- <div class="review-count rating">
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star filled"></i>
 																<i class="fas fa-star"></i>
-															</div>
+															</div> -->
 														</div>
 														<p class="comment-content">
 															Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -432,7 +432,7 @@
 															<a class="comment-btn" href="#">
 																<i class="fas fa-reply"></i> Reply
 															</a>
-															<p class="recommend-btn">
+															<!-- <p class="recommend-btn">
 																<span>Recommend?</span>
 																<a href="#" class="like-btn">
 																	<i class="far fa-thumbs-up"></i> Yes
@@ -440,7 +440,7 @@
 																<a href="#" class="dislike-btn">
 																	<i class="far fa-thumbs-down"></i> No
 																</a>
-															</p>
+															</p> -->
 														</div>
 													</div>
 												</div>
@@ -462,7 +462,7 @@
 								
 									<!-- Write Review -->
 									<div class="write-review">
-										<h4>Write a review for <strong>Dr. Darren Elder</strong></h4>
+										<h4>Write a review for <strong>Dr. {{doctor.name}}</strong></h4>
 										
 										<!-- Write Review Form -->
 										<form>
