@@ -3,6 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 from hugchat import hugchat
 import random
+import pandas as pd
 
 #Establish connection with postgresql database
 connection = psy.connect(
@@ -36,11 +37,13 @@ with st.sidebar:
     st.write("  Made with lots of LOVE - Team 43")
 
 Start_conversation = ["Hi there! How may I help you?", "Hello! How can I assist you?"]
-if 'generated' not in st.session_state:
-    num = random.randint(0, 1)
-    st.session_state['assisstant'] = [Start_conversation[num]]
-if 'past' not in st.session_state:
-    st.session_state['user'] = [""]
+
+if st.button('Start Chat'):
+    if 'assisstant' not in st.session_state:
+        num = random.randint(0, 1)
+        st.session_state['assisstant'] = [Start_conversation[num]]
+    if 'user' not in st.session_state:
+        st.session_state['user'] = [""]
 
 input_container = st.container()
 response_container = st.container()
@@ -48,7 +51,16 @@ user_input = ""
 chatbot = hugchat.ChatBot(cookie_path="cookies.json")
 
 def get_input():
-    input_text = st.text_input("You : ", "", key=input)
+    styl = f"""
+            <style>
+                .stTextInput {{
+                position: fixed;
+                bottom: 3rem;
+                }}
+            </style>
+            """
+    st.markdown(styl, unsafe_allow_html=True)
+    input_text = st.text_input("Enter text : ", "", key=input)
     return input_text
 
 def generate_response(prompt):
@@ -90,7 +102,7 @@ with response_container:
         st.session_state.user.append(user_input)
         st.session_state.assisstant.append(response)
         
-    if st.session_state['assisstant']:
+    if 'assisstant' in st.session_state and st.session_state['assisstant']:
         for i in range(len(st.session_state['assisstant'])):
             if i != 0:
                 display_message(st.session_state['user'][i], 'user')
