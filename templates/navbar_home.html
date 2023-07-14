@@ -93,7 +93,8 @@
       <li>
         <a href="{% url 'about-us'%}"style="text-decoration: none;">About Us</a>
       </li>
-
+     
+     
       {% if user.is_authenticated and user.is_doctor or user.is_patient %}
       <li><a href="{% url 'multiple-hospital' %}" style="text-decoration: none;">Hospital</a></li>
       {% endif %}
@@ -101,6 +102,10 @@
       {% if user.is_authenticated and user.is_patient  %}
       <li><a href="{% url 'search' %}" style="text-decoration: none;">Search Doctor</a></li>
       {% endif %}
+
+      <li>
+        <a href="{% url 'pharmacy_shop' %}">Chat with our MedicareBot!</a>
+      </li>
 
 
         
