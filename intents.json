@@ -18,7 +18,7 @@
             {
              "tag":"name",
              "patterns": ["what is your name","what should i call you","what's your name?","who are you?","can you tell me your name"],
-             "responses":["you can call me Medbot!","i am Medbot!","i am Medbot your medical assistant"]
+             "responses":["you can call me Healthbot from HealthEase!","i am Healthbot!","i am Healthbot your medical assistant"]
             },
             {
              "tag":"common cold symptoms",
