@@ -5,16 +5,16 @@ from hugchat import hugchat
 import random
 import pandas as pd
 
-#Establish connection with postgresql database
-connection = psy.connect(
-    host="localhost",
-    port="5432",
-    database="postgres",
-    user="postgres",
-    password="12345"
-)
+# #Establish connection with postgresql database
+# connection = psy.connect(
+#     host="localhost",
+#     port="5432",
+#     database="postgres",
+#     user="postgres",
+#     password="12345"
+# )
 
-cursor = connection.cursor()
+# cursor = connection.cursor()
 
 #title and sidebar
 st.set_page_config(page_title = "HealthStack Chatbot")
