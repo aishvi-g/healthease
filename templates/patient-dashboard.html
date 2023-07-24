@@ -182,9 +182,9 @@
                                   <td>{{appointment.appointment_type}}</td>
                                   
                                   {% if appointment.appointment_type == 'checkup' %}
-                                  <td>{{appointment.doctor.consultation_fee}} BDT</td>
+                                  <td>{{appointment.doctor.consultation_fee}} Rs</td>
                                   {% else %}
-                                  <td>{{appointment.doctor.report_fee}} BDT</td>
+                                  <td>{{appointment.doctor.report_fee}} Rs</td>
                                   {% endif %}
                                   <td>
                                     {% if appointment.appointment_status == 'pending' %}
@@ -408,7 +408,7 @@
                                   </td>
                                   <!-- <td>{{payment.transaction_id}}</td>
                                   <td>{{payment.transaction_date}}</td>
-                                  <td>{{payment.currency_amount}} BDT</td>
+                                  <td>{{payment.currency_amount}} Rs</td>
                                   <td>{{payment.card_type}}</td>
                                   <td>{{payment.card_issuer}}</td> -->
                                   <td>
