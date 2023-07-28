@@ -20,7 +20,7 @@ patients_collection = db['patients']
 doctors_collection = db['doctors']
 appointments_collection = db['appointments']
 current_patient_id = None
-# Initialize user_state dictionary to keep track of user interactions and states
+
 user_state = {}
 
 
@@ -101,7 +101,7 @@ def process_password_step(message, full_name, age, username):
   user_id = message.chat.id
   password = message.text.strip()
 
-  # Check password strength
+ 
   if not is_secure_password(password):
     bot.send_message(
         user_id,
@@ -111,7 +111,6 @@ def process_password_step(message, full_name, age, username):
                                    age, username)
     return
 
-  # Hash the password securely using bcrypt
   hashed_password = bcrypt.hashpw(password.encode('utf-8'),
                                   bcrypt.gensalt()).decode(
                                       'utf-8')  # Convert bytes to str
@@ -122,7 +121,6 @@ def process_password_step(message, full_name, age, username):
 
 
 def is_secure_password(password):
-  # Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.
   if len(password) < 8:
     return False
 
@@ -139,8 +137,7 @@ def process_email_step(message, full_name, age, username, password):
   user_id = message.chat.id
   email = message.text.strip()
 
-  # Check if the username is already taken
-  existing_patient = patients_collection.find_one({"username": username})
+existing_patient = patients_collection.find_one({"username": username})
   if existing_patient:
     bot.send_message(
         user_id,
@@ -149,7 +146,6 @@ def process_email_step(message, full_name, age, username, password):
                                    age)
     return
 
-  # Insert patient details into the database
   patients_collection.insert_one({
       "user_id": user_id,
       "full_name": full_name,
@@ -181,8 +177,7 @@ def login_process_password(message, username):
   user_id = message.chat.id
   password = message.text.strip()
 
-  # Retrieve the patient from the database using the provided username
-  patient = patients_collection.find_one({"username": username})
+ patient = patients_collection.find_one({"username": username})
   if patient and bcrypt.checkpw(password.encode('utf-8'),
                                 patient['password'].encode('utf-8')):
     global current_patient_id
@@ -199,7 +194,7 @@ def talk_to_medease_menu(message):
   bot.send_message(user_id, "Sure, go ahead and ask your question:")
   user_state[user_id] = {
       "action": "ask_question"
-  }  # Update user state to a dictionary with "action" key
+  } 
 
 
 def show_departments_menu(user_id):
@@ -213,7 +208,6 @@ def show_departments_menu(user_id):
   user_state[user_id] = "choose_department"
 
 
-# Function to show available departments and allow the patient to choose one
 def show_departments_menu(user_id):
   markup = types.ReplyKeyboardMarkup(row_width=2)
   departments = doctors_collection.distinct("department")
@@ -235,7 +229,7 @@ def show_departments_menu(user_id):
 #   user_state[user_id] = "choose_department"
 
 
-# Function to show doctors within a selected department and allow the patient to choose one
+# Function to show doctors within a selected department 
 def show_doctors_in_department(user_id, department):
   markup = types.ReplyKeyboardMarkup(row_width=2)
   doctors = doctors_collection.find({"department": department})
@@ -261,7 +255,7 @@ def book_appointment_menu(message):
   show_departments_menu(user_id)
 
 
-# Function to show available time slots and allow the patient to choose one
+# Function to show available time slots 
 def show_available_slots(user_id, doctor_name):
   doctor = doctors_collection.find_one({"full_name": doctor_name})
   if not doctor:
@@ -269,7 +263,6 @@ def show_available_slots(user_id, doctor_name):
     show_main_menu(user_id)
     return
 
-  # Check if the doctor has any available slots
   available_slots = doctor.get("available_slots", [])
   if not available_slots:
     bot.send_message(
@@ -277,14 +270,12 @@ def show_available_slots(user_id, doctor_name):
     show_main_menu(user_id)
     return
 
-  # Retrieve the booked slots for the specific doctor from the appointments collection
   booked_slots = appointments_collection.find({"doctor_name": doctor_name}, {
       "_id": 0,
       "appointment_time": 1
   })
   booked_slots = [slot["appointment_time"] for slot in booked_slots]
 
-  # Filter out the booked slots from the available slots
   available_slots = [
       slot for slot in available_slots if slot not in booked_slots
   ]
@@ -293,9 +284,7 @@ def show_available_slots(user_id, doctor_name):
     bot.send_message(user_id, f"All slots for {doctor_name} are booked.")
     show_main_menu(user_id)
     return
-
-  # Create a keyboard markup with available time slots
-  markup = types.ReplyKeyboardMarkup(row_width=2)
+    markup = types.ReplyKeyboardMarkup(row_width=2)
   for slot in available_slots:
     markup.add(types.KeyboardButton(slot))
 
@@ -310,13 +299,13 @@ def show_available_slots(user_id, doctor_name):
 
 # Function to book an appointment with the selected doctor and time slot
 def book_appointment(user_id, doctor_name, appointment_time):
-  # Retrieve the patient's details using user_id
+ 
   doctor = doctors_collection.find_one({"full_name": doctor_name})
   if not doctor:
     bot.send_message(user_id, f"Doctor '{doctor_name}' not found.")
     return
 
-  # Retrieve the patient's _id from the user_state dictionary
+
   global current_patient_id
 
   if not current_patient_id:
@@ -324,12 +313,11 @@ def book_appointment(user_id, doctor_name, appointment_time):
     show_main_menu(user_id)
     return
 
-  # Update the doctor's booked_slots and save the appointment in the database
   doctor_id = doctor["_id"]
   appointment_data = {
       "user_id": user_id,
       "patient_id":
-      current_patient_id,  # Store the patient's _id in the appointment
+      current_patient_id,  
       "doctor_id": doctor_id,
       "doctor_name": doctor_name,
       "appointment_time": appointment_time,
@@ -348,7 +336,6 @@ def book_appointment(user_id, doctor_name, appointment_time):
   show_main_menu(user_id)
 
 
-# ...
 
 
 # Function to handle user responses and dispatch them to appropriate functions
@@ -369,7 +356,6 @@ def handle_user_response(message):
     doctor_name = state["doctor_name"]
     appointment_time = message.text.strip()
 
-    # Validate if the selected time slot is available
     doctor = doctors_collection.find_one({"full_name": doctor_name})
     available_slots = doctor.get("available_slots", [])
     if appointment_time not in available_slots:
@@ -396,7 +382,6 @@ def handle_user_response(message):
 def view_appointments_menu(message):
   user_id = message.chat.id
 
-  # Retrieve the patient's details using user_id
   global current_patient_id
 
   if not current_patient_id:
@@ -417,7 +402,6 @@ def view_appointments_menu(message):
     for appointment in appointments_list:
       doctor_name = appointment.get("doctor_name", "Unknown Doctor")
       appointment_time = appointment.get("appointment_time", "Unknown Time")
-      # Retrieve the doctor's department from the doctors collection
       doctor = doctors_collection.find_one({"full_name": doctor_name})
       department = doctor.get("department", "Unknown Department")
       message_text += f"Doctor: {doctor_name}\n"
