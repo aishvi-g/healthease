@@ -1,0 +1,59 @@
+import speech_recognition as sr
+from gtts import gTTS
+import os
+import requests
+import json
+import datetime
+
+def get_voice_input():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = recognizer.listen(source)
+
+    try:
+        text_input = recognizer.recognize_google(audio)
+        print("You said:", text_input)
+        return text_input
+    except sr.UnknownValueError:
+        print("Sorry, could not understand your speech.")
+        return None
+    except sr.RequestError as e:
+        print("Error in recognizing speech; {0}".format(e))
+        return None
+
+def text_to_speech(text):
+    tts = gTTS(text=text, lang='en')
+    tts.save("output.mp3")
+    os.system("start output.mp3")  # On Windows
+
+def generate_answer(question):
+    # Use your API key to call the medical information API
+    # Make an HTTP request to the API and get the response
+    response = requests.get("API_URL", params={"question": question, "api_key": "YOUR_API_KEY"})
+    data = response.json()
+    return data.get("answer", "Sorry, I don't have an answer for that.")
+
+def book_appointment(doctor, date_time):
+    # Use your API key to book an appointment with the specified doctor and date/time
+    # Make an HTTP request to the appointment booking API and get the response
+    response = requests.post("BOOKING_API_URL", data={"doctor": doctor, "datetime": date_time, "api_key": "YOUR_API_KEY"})
+    data = response.json()
+    return data.get("status", "Appointment booking failed.")
+
+if __name__ == "__main__":
+    while True:
+        print("Please speak your question:")
+        user_input = get_voice_input()
+        if user_input:
+            answer = generate_answer(user_input)
+            text_to_speech(answer)
+
+            print("Do you want to book an appointment? (Yes/No)")
+            user_response = input().lower()
+            if user_response == "yes":
+                print("Please provide the doctor's name and preferred date/time for the appointment:")
+                doctor_name = input("Doctor's Name: ")
+                appointment_datetime = input("Preferred Date and Time (YYYY-MM-DD HH:mm): ")
+                appointment_status = book_appointment(doctor_name, appointment_datetime)
+                print(appointment_status)
