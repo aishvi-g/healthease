@@ -12,7 +12,7 @@ HealthEase is your partner in health. At HealthEase, we believe that everyone de
 
 ## Technology Used:
 - Website : HTML, CSS, Javascript , Django , External Database
-- Health assistant bot : Angular,Vue, Python Chat , GPT 3.5 API
+- Health assistant bot :  Python Chat , GPT 3.5 API
 - Telegram Bot: Python , Cohere AI , Azure Translator, External Database
 
 ## Functionality
