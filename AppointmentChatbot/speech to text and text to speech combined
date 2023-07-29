@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech to Text Recognition</title>
+</head>
+<body>
+    <h1>Speech to Text Recognition</h1>
+
+    <!-- Display area for recognized speech -->
+    <div id="output"></div>
+
+    <!-- Start Speech Recognition button -->
+    <button id="startButton">Start Listening</button>
+
+    <script>
+        // Check if the browser supports the Web Speech API
+        if ('webkitSpeechRecognition' in window) {
+            // Create a new SpeechRecognition object
+            const recognition = new webkitSpeechRecognition();
+
+            // Set properties for the SpeechRecognition object
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US'; // Specify the language
+
+            // Add event listener to the Start Button
+            document.getElementById('startButton').addEventListener('click', () => {
+                recognition.start();
+            });
+
+            // Event listener for speech recognition result
+            recognition.onresult = (event) => {
+                const results = event.results;
+                let transcript = '';
+                for (let i = event.resultIndex; i < results.length; i++) {
+                    transcript += results[i][0].transcript;
+                }
+                document.getElementById('output').innerText = transcript;
+            };
+        } else {
+            document.getElementById('output').innerText = "Speech Recognition is not supported in this browser.";
+        }
+    </script>
+</body>
+</html>
