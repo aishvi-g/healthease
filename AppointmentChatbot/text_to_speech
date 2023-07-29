@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to Speech Recognition</title>
+</head>
+<body>
+    <h1>Text to Speech Recognition</h1>
+
+    <!-- Input area for text to be spoken -->
+    <textarea id="textToSpeak" rows="4" cols="50">Hello, this is a sample text.</textarea>
+
+    <!-- Speak Button -->
+    <button id="speakButton">Speak</button>
+
+    <script>
+        // Check if the browser supports the SpeechSynthesis API
+        if ('speechSynthesis' in window) {
+            const speechSynthesis = window.speechSynthesis;
+            const speakButton = document.getElementById('speakButton');
+            const textToSpeak = document.getElementById('textToSpeak');
+
+            // Add event listener to the Speak Button
+            speakButton.addEventListener('click', () => {
+                // Create a new SpeechSynthesisUtterance object
+                const utterance = new SpeechSynthesisUtterance(textToSpeak.value);
+                
+                // Set properties for the SpeechSynthesisUtterance object (optional)
+                utterance.lang = 'en-US'; // Specify the language
+                utterance.rate = 1; // Speed of speech (0.1 to 10)
+                utterance.pitch = 1; // Pitch of speech (0 to 2)
+                
+                // Speak the text
+                speechSynthesis.speak(utterance);
+            });
+        } else {
+            document.getElementById('textToSpeak').innerText = "Text-to-Speech is not supported in this browser.";
+            document.getElementById('speakButton').disabled = true;
+        }
+    </script>
+</body>
+</html>
