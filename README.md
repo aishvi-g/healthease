@@ -27,7 +27,8 @@ HealthEase is your partner in health. At HealthEase, we believe that everyone de
 - Doctors can approve or decline appointments
 - Online Prescription can be added
 
-
+## Demo 
+[Link](https://drive.google.com/file/d/1kL85S3QwdHUKR6hDiXaxnmmsgd02lXtC/view?usp=sharing)
 
 
 
